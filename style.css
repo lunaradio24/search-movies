@@ -1,0 +1,65 @@
+header {
+  display: flex;
+  justify-content: center;
+  background-color: aqua;
+}
+header > .title > span {
+  background-color: brown;
+}
+main {
+  background-color: green;
+}
+main > nav {
+  background-color: greenyellow;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-box {
+  display: flex;
+  gap: 10px;
+}
+#search-input {
+  width: 250px;
+  height: 25px;
+  border-radius: 5px;
+  border-width: 1px;
+  padding-left: 10px;
+}
+#search-input::placeholder {
+  color: rgb(158, 158, 158);
+}
+#search-button {
+  width: 40px;
+  height: 28px;
+  border-radius: 5px;
+  border-width: 1px;
+}
+main > section {
+  background-color: rgb(173, 173, 233);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-row-gap: 50px;
+  padding: 2.5%;
+  justify-content: space-evenly;
+  justify-items: center;
+}
+main > section > .card {
+  width: 60%;
+  background-color: violet;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5%;
+}
+.card > .image-box {
+  background-color: blueviolet;
+  display: grid;
+  justify-items: center;
+}
+
+.image-box > img {
+  width: 90%;
+  border-radius: 10px;
+  object-fit: contain;
+}

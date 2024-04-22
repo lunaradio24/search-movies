@@ -9,17 +9,20 @@
   </head>
   <body>
     <header>
-      <h1 class="title">title</h1>
+      <h1 class="title"><span> Title </span></h1>
     </header>
     <main>
-      <nav></nav>
-      <aside></aside>
-      <section>
-        <article></article>
-        <article></article>
-        <article></article>
-      </section>
+      <nav>
+        <div class="search-box">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="영화 제목을 입력하세요"
+          />
+          <button type="button" id="search-button">검색</button>
+        </div>
+      </nav>
+      <section class="grid-flow" id="movie-list"></section>
     </main>
-    <footer></footer>
   </body>
 </html>
