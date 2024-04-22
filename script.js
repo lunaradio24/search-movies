@@ -62,4 +62,8 @@ async function make_card(
   movie_title.textContent = title;
   movie_overview.textContent = overview;
   movie_rating.textContent = "rating: " + rating;
+
+  movie_card.addEventListener("click", (event) => {
+    alert("영화 id: " + event.currentTarget.id);
+  });
 }
