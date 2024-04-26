@@ -111,17 +111,23 @@ function search() {
       const card = document.getElementById(element.id);
       card.style.display = "block";
     });
-    //alert창 띄우기
-    alert("검색어를 입력해주세요.");
+    //토스트 메시지 띄우기
+    toastMsg();
   } else {
     // do nothing
   }
 }
 /********************   이벤트 핸들러 생성 함수  ********************/
 function addEvents() {
-  //검색창과 검색버튼 각각 할당해주기
+  //이벤트 생성해줄 대상을 각각 할당해주기
+  page_title = document.querySelector(".title > span");
   search_input = document.getElementById("search-input");
   search_button = document.getElementById("search-button");
+  //페이지 타이틀을 클릭했을 때의 이벤트 생성
+  page_title?.addEventListener("click", (event) => {
+    event.preventDefault();
+    window.location.reload();
+  });
   //검색 버튼을 클릭했을 때의 이벤트 생성
   search_button?.addEventListener("click", (event) => {
     event.preventDefault();
@@ -134,6 +140,15 @@ function addEvents() {
       search();
     }
   });
+}
+
+/********************   토스트 메시지 함수  ********************/
+function toastMsg() {
+  let toastMessage = document.getElementById("toast_message");
+  toastMessage.classList.add("active");
+  setTimeout(function () {
+    toastMessage.classList.remove("active");
+  }, 1000);
 }
 
 /********************   Initialise  ********************/
