@@ -1,7 +1,7 @@
 /********************   변수 선언  ********************/
-let search_input;
-let search_button;
-let fetched_movies;
+let searchInput;
+let searchButton;
+let fetchedMovies;
 // option for fetching movie data using TMDB's open API
 const options = {
   method: "GET",
@@ -14,8 +14,8 @@ const options = {
 
 /********************   영화 정보 fecth 및 영화카드 생성 함수  ********************/
 function fetchMovies() {
-  //fetched_movies 목록을 초기화 합니다.
-  fetched_movies = [];
+  //fetchedMovies 목록을 초기화 합니다.
+  fetchedMovies = [];
   fetch(
     "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
     options
@@ -23,8 +23,8 @@ function fetchMovies() {
     .then((response) => response.json())
     .then((response) => {
       response.results.forEach((element) => {
-        // API를 이용해 TMDB에서 fetch로 가져온 영화목록을 "fetched_movies" 배열에 하나씩 차례대로 push
-        fetched_movies.push({
+        // API를 이용해 TMDB에서 fetch로 가져온 영화목록을 "fetchedMovies" 배열에 하나씩 차례대로 push
+        fetchedMovies.push({
           id: element.id,
           poster: element.poster_path,
           title: element.title,
@@ -32,7 +32,7 @@ function fetchMovies() {
           vote: element.vote_average,
         });
         // 영화카드 생성
-        make_card(
+        makeCard(
           element.id,
           element.poster_path,
           element.title,
@@ -45,59 +45,59 @@ function fetchMovies() {
 }
 
 /********************   영화카드 템플릿 생성 함수  ********************/
-async function make_card(movie_id, poster_img, title, overview, rating) {
-  const movie_list = document.getElementById("movie-list");
-  const new_card = document.createElement("article");
-  const new_imgbox = document.createElement("div", { class: "image-box" });
-  const new_poster = document.createElement("img", { src: poster_img });
-  const new_title = document.createElement("h3");
-  const new_overview = document.createElement("div", { class: "overview" });
-  const new_rating = document.createElement("p");
+async function makeCard(id, posterPath, title, overview, rating) {
+  const movieList = document.getElementById("movie-list");
+  const newCard = document.createElement("article");
+  const newImgbox = document.createElement("div", { class: "image-box" });
+  const newPoster = document.createElement("img", { src: posterPath });
+  const newTitle = document.createElement("h3");
+  const newOverview = document.createElement("div", { class: "overview" });
+  const newRating = document.createElement("p");
 
-  let movie_card = movie_list.appendChild(new_card);
-  let movie_imgbox = movie_card.appendChild(new_imgbox);
-  let movie_poster = movie_imgbox.appendChild(new_poster);
-  let movie_title = movie_card.appendChild(new_title);
-  let movie_overview = movie_card.appendChild(new_overview);
-  let movie_rating = movie_card.appendChild(new_rating);
+  let movieCard = movieList.appendChild(newCard);
+  let movieImgbox = movieCard.appendChild(newImgbox);
+  let moviePoster = movieImgbox.appendChild(newPoster);
+  let movieTitle = movieCard.appendChild(newTitle);
+  let movieOverview = movieCard.appendChild(newOverview);
+  let movieRating = movieCard.appendChild(newRating);
 
-  movie_card.classList.add("card");
-  movie_card.setAttribute("id", movie_id); //영화 id를 영화카드(article)의 id로 할당
-  movie_imgbox.classList.add("image-box");
-  movie_poster.setAttribute(
+  movieCard.classList.add("card");
+  movieCard.setAttribute("id", id); //영화 id를 영화카드(article)의 id로 할당
+  movieImgbox.classList.add("image-box");
+  moviePoster.setAttribute(
     "src",
     "https://image.tmdb.org/t/p/" +
       "w" +
       "300" /*poster_size*/ +
       "/" +
-      poster_img
+      posterPath
   );
-  movie_title.textContent = title;
-  movie_overview.textContent = overview;
-  movie_rating.textContent = "rating: " + rating;
+  movieTitle.textContent = title;
+  movieOverview.textContent = overview;
+  movieRating.textContent = "rating: " + rating;
 
   // 영화 카드 클릭했을 때의 이벤트 생성
-  movie_card.addEventListener("click", (event) => {
+  movieCard.addEventListener("click", (event) => {
     // 영화 id 알려주는 alert 창 띄우기
     alert("영화 id: " + event.currentTarget.id);
   });
 }
 
 /********************   검색 함수  ********************/
-function search() {
+function searchMovies() {
   //검색창과 검색버튼 각각 할당해주기
-  search_input = document.getElementById("search-input");
+  searchInput = document.getElementById("search-input");
   //검색어(검색창에 입력된 글자)가 non-empty일 때만 실행
-  if (search_input.value !== "") {
+  if (searchInput.value !== "") {
     //검색어의 모든 알파벳을 소문자로 변환
-    const lowered_searching = search_input.value.toLowerCase();
+    const loweredSearching = searchInput.value.toLowerCase();
 
-    fetched_movies.forEach((element) => {
+    fetchedMovies.forEach((element) => {
       //영화 제목의 모든 알파벳을 소문자로 변환
-      const lowered_title = element.title.toLowerCase();
+      const loweredTitle = element.title.toLowerCase();
       // 영화 id로 해당 카드 찾아내기
       const card = document.getElementById(element.id);
-      if (lowered_title.includes(lowered_searching)) {
+      if (loweredTitle.includes(loweredSearching)) {
         // 검색어가 포함된 영화라면 카드를 보이도록 설정
         card.style.display = "block";
       } else {
@@ -105,9 +105,9 @@ function search() {
         card.style.display = "none";
       }
     });
-  } else if (search_input.value === "") {
+  } else if (searchInput.value === "") {
     //모든 영화카드를 보여주고
-    fetched_movies.forEach((element) => {
+    fetchedMovies.forEach((element) => {
       const card = document.getElementById(element.id);
       card.style.display = "block";
     });
@@ -120,24 +120,24 @@ function search() {
 /********************   이벤트 핸들러 생성 함수  ********************/
 function addEvents() {
   //이벤트 생성해줄 대상을 각각 할당해주기
-  page_title = document.querySelector(".title > span");
-  search_input = document.getElementById("search-input");
-  search_button = document.getElementById("search-button");
+  pageTitle = document.querySelector(".title > span");
+  searchInput = document.getElementById("search-input");
+  searchButton = document.getElementById("search-button");
   //페이지 타이틀을 클릭했을 때의 이벤트 생성
-  page_title?.addEventListener("click", (event) => {
+  pageTitle?.addEventListener("click", (event) => {
     event.preventDefault();
     window.location.reload();
   });
   //검색 버튼을 클릭했을 때의 이벤트 생성
-  search_button?.addEventListener("click", (event) => {
+  searchButton?.addEventListener("click", (event) => {
     event.preventDefault();
-    search();
+    searchMovies();
   });
   //Enter 키를 눌렀을 때의 이벤트 생성
-  search_input?.addEventListener("keydown", (event) => {
+  searchInput?.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      search();
+      searchMovies();
     }
   });
 }
