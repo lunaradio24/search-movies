@@ -8,18 +8,15 @@ const options = {
   headers: {
     accept: "application/json",
     Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTczMGIyZmQyNTAzYjM2ZWI4ZjFlNzEyYTg3MGJmNyIsInN1YiI6IjY2MjY0YTRkMmUyYjJjMDE4NzY4YmIwOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.juGftcAcZYfpUAIkI_0vyyur1hz2VtQez05Th_g5ZnQ",
-  },
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTczMGIyZmQyNTAzYjM2ZWI4ZjFlNzEyYTg3MGJmNyIsInN1YiI6IjY2MjY0YTRkMmUyYjJjMDE4NzY4YmIwOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.juGftcAcZYfpUAIkI_0vyyur1hz2VtQez05Th_g5ZnQ"
+  }
 };
 
 /********************   영화 정보 fecth 및 영화카드 생성 함수  ********************/
 function fetchMovies() {
   //fetchedMovies 목록을 초기화 합니다.
   fetchedMovies = [];
-  fetch(
-    "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
-    options
-  )
+  fetch("https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1", options)
     .then((response) => response.json())
     .then((response) => {
       response.results.forEach((element) => {
@@ -29,16 +26,10 @@ function fetchMovies() {
           poster: element.poster_path,
           title: element.title,
           overview: element.overview,
-          vote: element.vote_average,
+          vote: element.vote_average
         });
         // 영화카드 생성
-        makeCard(
-          element.id,
-          element.poster_path,
-          element.title,
-          element.overview,
-          element.vote_average
-        );
+        makeCard(element.id, element.poster_path, element.title, element.overview, element.vote_average);
       });
     })
     .catch((err) => console.error(err));
@@ -48,10 +39,10 @@ function fetchMovies() {
 async function makeCard(id, posterPath, title, overview, rating) {
   const movieList = document.getElementById("movie-list");
   const newCard = document.createElement("article");
-  const newImgbox = document.createElement("div", { class: "image-box" });
-  const newPoster = document.createElement("img", { src: posterPath });
+  const newImgbox = document.createElement("div");
+  const newPoster = document.createElement("img");
   const newTitle = document.createElement("h3");
-  const newOverview = document.createElement("div", { class: "overview" });
+  const newOverview = document.createElement("div");
   const newRating = document.createElement("p");
 
   let movieCard = movieList.appendChild(newCard);
@@ -64,20 +55,16 @@ async function makeCard(id, posterPath, title, overview, rating) {
   movieCard.classList.add("card");
   movieCard.setAttribute("id", id); //영화 id를 영화카드(article)의 id로 할당
   movieImgbox.classList.add("image-box");
-  moviePoster.setAttribute(
-    "src",
-    "https://image.tmdb.org/t/p/" +
-      "w" +
-      "300" /*poster_size*/ +
-      "/" +
-      posterPath
-  );
+  movieImgbox.setAttribute("id", id); //영화 id를 영화카드(article)의 id로 할당
+  moviePoster.setAttribute("src", "https://image.tmdb.org/t/p/" + "w" + "300" /*poster_size*/ + "/" + posterPath);
   movieTitle.textContent = title;
+  movieOverview.classList.add("overview");
   movieOverview.textContent = overview;
+  movieRating.classList.add("rating");
   movieRating.textContent = "rating: " + rating;
 
-  // 영화 카드 클릭했을 때의 이벤트 생성
-  movieCard.addEventListener("click", (event) => {
+  // 영화 카드 이미지를 클릭했을 때의 이벤트 생성
+  movieImgbox.addEventListener("click", (event) => {
     // 영화 id 알려주는 alert 창 띄우기
     alert("영화 id: " + event.currentTarget.id);
   });
@@ -106,13 +93,10 @@ function searchMovies() {
       }
     });
   } else if (searchInput.value === "") {
-    //모든 영화카드를 보여주고
-    fetchedMovies.forEach((element) => {
-      const card = document.getElementById(element.id);
-      card.style.display = "block";
-    });
     //토스트 메시지 띄우기
     toastMsg();
+    //입력창에 focus
+    searchInput.focus();
   } else {
     // do nothing
   }
