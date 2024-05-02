@@ -4,9 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>내배캠 최고 평점 영화</title>
-    <link href="reset.css" rel="stylesheet" />
-    <link href="ui.css" rel="stylesheet" />
-    <script src="script.js"></script>
+    <link href="./style/reset.css" rel="stylesheet" />
+    <link href="./style/ui.css" rel="stylesheet" />
+    <script src="./src/fetch.js" type="module"></script>
+    <script src="./src/card.js" type="module"></script>
+    <script src="./src/search.js" type="module"></script>
+    <script src="./src/main.js" type="module"></script>
   </head>
   <body>
     <header>
@@ -14,12 +17,12 @@
     </header>
     <main>
       <nav>
-        <div class="search-box">
+        <form id="search-form">
           <input type="text" id="search-input" placeholder="영화 제목을 입력하세요" autofocus />
-          <button type="button" id="search-button">검색</button>
-        </div>
+          <button type="submit" id="search-button">검색</button>
+        </form>
       </nav>
-      <section class="grid-flow" id="movie-list"></section>
+      <ul class="grid-flow" id="movie-list"></ul>
     </main>
     <!-- toast message -->
     <div id="toast_message">검색어를 입력해주세요</div>
