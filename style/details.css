@@ -1,0 +1,30 @@
+main {
+  display: flex;
+  flex-direction: column;
+  background-color: aqua;
+  height: 100%;
+  padding: 15px;
+  gap: 5px;
+}
+
+main > section {
+  background: beige;
+  /* border: 3px solid #ffcc80; */
+  /* border-radius: 5px; */
+  padding: 8px;
+}
+
+.about-movie {
+  order: 0;
+  flex-grow: 2;
+}
+
+.made-by {
+  order: 1;
+  flex-grow: 1;
+}
+
+.review {
+  order: 2;
+  flex-grow: 1;
+}

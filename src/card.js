@@ -19,14 +19,15 @@ function makeCard(fetchedMovies) {
         </figure>
         <h3>${movie.title}</h3>
         <p class="overview">${movie.overview}</p>
-        <p class="rating">${movie.vote_average}</p>
+        <p class="rating">rating: ${movie.vote_average}</p>
     `;
     //위에서 만든 innerCard 템플릿을 <li> 속에 넣습니다.
     movieCard.innerHTML += innerCard;
     //<li>에 클릭 이벤트 핸들러를 부여합니다.
     movieCard?.addEventListener("click", (event) => {
       //영화 id를 알려주는 알림창을 띄웁니다.
-      alert("영화 id: " + movie.id);
+      let openWin = window.open("../details.html?" + movie.id); // 새탭에서 열림
+      openWin.document.getElementsByClassName("about-movie")[0].id = movie.id;
     });
   });
 }

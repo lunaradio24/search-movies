@@ -29,11 +29,17 @@ main > nav {
   display: flex;
   gap: 10px;
 }
+#search-option {
+  height: 28px;
+  border-radius: 5px;
+  border-width: 1px;
+  padding-left: 10px;
+}
 #search-input {
   width: 250px;
   height: 25px;
+  border: none;
   border-radius: 5px;
-  border-width: 1px;
   padding-left: 10px;
 }
 #search-input::placeholder {
